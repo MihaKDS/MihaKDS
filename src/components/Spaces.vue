@@ -1,0 +1,42 @@
+<template>
+    <div class="space">
+        <div class="spots">
+          <slot name="spot"></slot>
+        </div>
+        <div class="stats">
+          <slot name="stat"></slot>
+        </div>
+        <div class="numbers">
+          <slot name="number"></slot>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+.space{
+  font-size: 0.74em;
+  position: absolute;
+  align-items: center;
+}
+.spots{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  border: 2px solid gray;
+  border-radius: 5em;
+  width: 4em;
+  height: 4em;
+}
+.numbers{
+  position: inherit;
+  border: 2px solid purple;
+  border-radius: 10em;
+  top: -0.2em;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  color: purple;
+  background-color: white;
+  z-index: 1;
+}
+</style>

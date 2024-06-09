@@ -1,5 +1,5 @@
 <script setup>
-import TopIzpis from '../src/components/TopIzpis.vue'
+import TopIzpis from './components/TopIzpis.vue'
 import Universe from './components/Universe.vue';
 </script>
 
@@ -59,7 +59,7 @@ export default {
               }else if(this.spaces[i].value <=0){
                 this.spaces[i].state = "wh"
                 this.spaces[i].value = this.spaces[i].end*100
-                document.getElementById("simg"+i).setAttribute("src", "../src/assets/bbh_rad.png")
+                document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh_rad.png")
                 break
               }
             break
@@ -73,7 +73,7 @@ export default {
                   this.h += this.spaces[i].value
                   this.h = Math.round(this.h*1000)/1000
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
-                  document.getElementById("simg"+i).setAttribute("src", "../src/assets/Plus.png")
+                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
                   break
                 }
                 break
@@ -82,22 +82,26 @@ export default {
             case "sun_nebula":
               if(this.spaces[i].value> 0){
                 this.spaces[i].value -=1
+                break
               }else if(this.spaces[i].value <=0){
                 this.spaces[i].state = "sun"
                 this.spaces[i].value = this.spaces[i].end
-                document.getElementById("simg"+i).setAttribute("src", "../src/assets/bbh.png")
+                document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh.png")
+                break
               }
             break
             case "sun":
               if(this.spaces[i].value- 0.5> 0){
                 this.spaces[i].value -=0.5
                 this.de += 0.005
+                break
               }else if(this.spaces[i].value -0.5 <=0){
                 if(this.spaces[i].value >0){
                   this.de += this.spaces[i].value/100
                   this.spaces[i].value = 0
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
-                  document.getElementById("simg"+i).setAttribute("src", "../src/assets/Plus.png")
+                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
+                 break
                 }
               }
             break   
@@ -154,7 +158,7 @@ export default {
             if(this.dm>= this.wh_size){
               this.dm -= this.wh_size
               this.spaces[id] = {id: id, state:"wh_nebula", value: Math.floor(this.wh_size)*20+10, end: this.wh_size}
-              document.getElementById("simg"+id).setAttribute("src", "../src/assets/dmtn.png")
+              document.getElementById("simg"+id).setAttribute("src", "./src/assets/dmtn.png")
               this.saveTime()
               break
             }
@@ -163,7 +167,7 @@ export default {
             if(this.h >= 100){  
               this.h -=100       
               this.spaces[id] = {id: id, state:"sun_nebula", value: 2, end: 100}
-              document.getElementById("simg"+id).setAttribute("src", "../src/assets/dmtn.png")
+              document.getElementById("simg"+id).setAttribute("src", "./src/assets/dmtn.png")
               this.saveTime()
               break
             }
@@ -227,22 +231,22 @@ export default {
       console.log(timeWarp)
       for(let i = 0; i<=timeWarp; i++){
         this.spaceTime()
-        this.spacesSpacetime()
         this.countSpaces()
+        this.spacesSpacetime()
       }
       for(let y = 0; y<= this.spaces.length-1; y++){
         switch(this.spaces[y].state){
           case "wh_nebula":
-            document.getElementById("simg"+y).setAttribute("src", "../src/assets/dmtn.png")
+            document.getElementById("simg"+y).setAttribute("src", "./src/assets/dmtn.png")
           break  
           case "wh":
-            document.getElementById("simg"+y).setAttribute("src", "../src/assets/bbh_rad.png")
+            document.getElementById("simg"+y).setAttribute("src", "./src/assets/bbh_rad.png")
           break  
           case "sun_nebula":
-            document.getElementById("simg"+y).setAttribute("src", "../src/assets/dmtn.png")
+            document.getElementById("simg"+y).setAttribute("src", "./src/assets/dmtn.png")
           break  
           case "sun":
-            document.getElementById("simg"+y).setAttribute("src", "../src/assets/bbh.png")
+            document.getElementById("simg"+y).setAttribute("src", "./src/assets/bbh.png")
           break  
         }
       }

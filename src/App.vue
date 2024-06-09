@@ -59,7 +59,9 @@ export default {
               }else if(this.spaces[i].value <=0){
                 this.spaces[i].state = "wh"
                 this.spaces[i].value = this.spaces[i].end*100
-                document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh_rad.png")
+                if(document.getElementById("simg"+i) !== null){
+                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh_rad.png")
+                }
                 break
               }
             break
@@ -73,7 +75,9 @@ export default {
                   this.h += this.spaces[i].value
                   this.h = Math.round(this.h*1000)/1000
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
-                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
+                  if(document.getElementById("simg"+i) !== null){
+                    document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
+                  }
                   break
                 }
                 break
@@ -86,7 +90,9 @@ export default {
               }else if(this.spaces[i].value <=0){
                 this.spaces[i].state = "sun"
                 this.spaces[i].value = this.spaces[i].end
-                document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh.png")
+                if(document.getElementById("simg"+i) !== null){
+                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/bbh.png")
+                }
                 break
               }
             break
@@ -100,7 +106,9 @@ export default {
                   this.de += this.spaces[i].value/100
                   this.spaces[i].value = 0
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
-                  document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
+                  if(document.getElementById("simg"+i) !== null){
+                    document.getElementById("simg"+i).setAttribute("src", "./src/assets/Plus.png")
+                  }
                  break
                 }
               }
@@ -228,7 +236,6 @@ export default {
       let nSet = new Date()
       let nTim = Math.round((nSet.getTime())/1000)
       let timeWarp = nTim - saved
-      console.log(timeWarp)
       for(let i = 0; i<=timeWarp; i++){
         this.spaceTime()
         this.countSpaces()

@@ -9,7 +9,7 @@ import Universe from './components/Universe.vue';
       <TopIzpis :dm="dm" :h="h"/>
     </div>
     <div class="uni">
-      <Universe :de="de" :spaces="spaces" @spClick ="spaceClick" @inClick="invenClick" @whs="whiteHole" />
+      <Universe :de="de" :whm="whm" :spaces="spaces" :tmp_inv="tmp_inv" @spClick ="spaceClick" @inClick="invenClick" @whs="whiteHole" @sunSet="sunSet" />
     </div>
   </main>
 </template>
@@ -18,18 +18,20 @@ import Universe from './components/Universe.vue';
 export default {
   data() {
     return{
-      dm: 0.999,
+      dm: 4.999,
       de: 0.999,
       h: 0,
       sc: 0,
-      whs: 0,
-      wh_size: (0.1*(Math.PI)**0),
+      whm: 1, //max wh size
       force: 0.000666,
-      passive: 0.0004796,
+      passive: 0.000479,
       tmp_inv: 'none',
       spaces: [
         {id: 0, state:"empty", value: 0, end: 0},
       ],
+      whs: 1, // selected wh size
+      wh_size: (0.1*(Math.PI)**1),
+      sunS: 1, // selected sun
     }
   },
   components: {
@@ -165,16 +167,16 @@ export default {
           case "wh":
             if(this.dm>= this.wh_size){
               this.dm -= this.wh_size
-              this.spaces[id] = {id: id, state:"wh_nebula", value: Math.floor(this.wh_size)*20+10, end: this.wh_size}
+              this.spaces[id] = {id: id, state:"wh_nebula", value: 1, end: this.wh_size}
               document.getElementById("simg"+id).setAttribute("src", "./src/assets/dmtn.png")
               this.saveTime()
               break
             }
           break
           case "sun":
-            if(this.h >= 100){  
-              this.h -=100       
-              this.spaces[id] = {id: id, state:"sun_nebula", value: 2, end: 100}
+            if(this.h >= (10**this.sunS)){  
+              this.h -=10**this.sunS       
+              this.spaces[id] = {id: id, state:"sun_nebula", value: 2, end: 10**this.sunS}
               document.getElementById("simg"+id).setAttribute("src", "./src/assets/dmtn.png")
               this.saveTime()
               break
@@ -195,13 +197,20 @@ export default {
           }else if(this.tmp_inv === "wh"){
             document.body.style.cursor = "default"
             document.getElementById("wh").style.borderColor = "gray"
-            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "none"
+            break
+          }else if(this.tmp_inv !== "wh"){
+            document.getElementById(this.tmp_inv).style.borderColor = "gray"
+            document.getElementById("invset").style.display = "block"
+            document.getElementById("wh").style.borderColor = "yellow"
+            this.tmp_inv = "wh"
+            break
           }
           break
         case "sun":
           if(this.tmp_inv === "none"){
             document.getElementById("sun").style.borderColor = "yellow"
+            document.getElementById("invset").style.display = "block"
             document.body.style.cursor = "cell"
             this.tmp_inv = "sun"
             break
@@ -209,17 +218,37 @@ export default {
             document.body.style.cursor = "default"
             document.getElementById("sun").style.borderColor = "gray"
             this.tmp_inv = "none"
+            break
+          }else if(this.tmp_inv !== "sun"){
+            document.getElementById(this.tmp_inv).style.borderColor = "gray"
+            document.getElementById("sun").style.borderColor = "yellow"
+            this.tmp_inv = "sun"
+            break
           }
         break
       }
     },
     whiteHole: function(i){
-      this.whs = i
-      this.wh_size = 0.1*(Math.PI)**this.whs
-      for(let y = 0; y<=2; y++){
-        document.getElementById("it"+y).style.borderColor = "gray"
+      if(i === "up"){
+        if(this.dm >= (((0.1*(Math.PI)**this.whm))*3)){
+          this.dm -= (((0.1*(Math.PI)**this.whm))*3)
+          this.whm ++
+        }
+      }else{
+        this.whs = i
+        this.wh_size = 0.1*(Math.PI)**(this.whs)
+        for(let y = 1; y<=this.whm; y++){
+          document.getElementById("it"+y).style.borderColor = "gray"
+        }
+        document.getElementById("it"+this.whs).style.borderColor = "yellow"
       }
-      document.getElementById("it"+this.whs).style.borderColor = "yellow"
+    },
+    sunSet: function(i){
+      this.sunS = i      
+        for(let y = 1; y <= 4; y++){
+          document.getElementById("sun"+y).style.borderColor = "gray"
+        }
+        document.getElementById("sun"+i).style.borderColor = "yellow"
     },
     saveTime: function(){
       let set = new Date()

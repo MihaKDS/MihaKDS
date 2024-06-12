@@ -30,9 +30,18 @@ import IconSingularity from './icons/IconSingularity.vue';
             </Spaces>
         </div>
         <div class="inv_set" id="invset">
-            <div class="inv_setting" id="it0" @click="clickSet(0)">0.1</div>
-            <div class="inv_setting" id="it1" @click="clickSet(1)">0.3</div>
-            <div class="inv_setting" id="it2" @click="clickSet(2)">0.9</div>
+          <div v-if="tmp_inv === 'wh'">
+            <div class="inv_setting" v-for="i in whm" :id="'it'+i" @click="clickSet(i)">
+              {{((0.1*(Math.PI)**i)).toFixed(2)}}
+            </div >
+            <div class="inv_setting" id="whup" @click="clickSet('up')">{{(((0.1*(Math.PI)**whm))*3).toFixed(2)}}DM</div>
+          </div>
+          <div v-else-if="tmp_inv === 'sun'">
+            <div class="inv_setting" id="sun1" @click="clickSunSet(1)">10H</div>
+            <div class="inv_setting" id="sun2" @click="clickSunSet(2)">100H</div>
+            <div class="inv_setting" id="sun3" @click="clickSunSet(3)">1kH</div>
+            <div class="inv_setting" id="sun4" @click="clickSunSet(4)">10kH</div>
+          </div>
         </div>
         <div class="inv_items">
             <div class="itm" id="wh">
@@ -53,12 +62,18 @@ import IconSingularity from './icons/IconSingularity.vue';
         name: "Universe",
         props: {
             de:{
-                type: Number,
-                required: true,
+              type: Number,
+              required: true,
+            },
+            whm:{
+              type: Number,
+              required: true,
             },
             spaces:{
-                type: Object,
-                required: true,
+              type: Object,
+              required: true,
+            },
+            tmp_inv:{
             }
         },
         methods: {
@@ -70,6 +85,9 @@ import IconSingularity from './icons/IconSingularity.vue';
             },
             clickSet(i){
                 this.$emit('whs', i)
+            },
+            clickSunSet(i){
+                this.$emit('sunSet', i)
             }
         }
     }
@@ -103,7 +121,13 @@ import IconSingularity from './icons/IconSingularity.vue';
     width: 4em;
     margin: 0.5em;
   }
-  #it0{
+  #it1{
+    border-color: yellow;
+  }
+  #whup{
+    border-color: green;
+  }
+  #sun1{
     border-color: yellow;
   }
 .inv_img{

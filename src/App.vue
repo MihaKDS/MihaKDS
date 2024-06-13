@@ -258,6 +258,7 @@ export default {
       localStorage.setItem('de', this.de)
       localStorage.setItem('h', this.h)
       localStorage.setItem('sc', this.sc)
+      localStorage.setItem('whm', this.whm)
       localStorage.setItem('whs', this.whs)
       localStorage.setItem('spaces', JSON.stringify(this.spaces))
     },
@@ -296,6 +297,7 @@ export default {
         this.de = Number(localStorage.getItem("de"))
         this.h = Number(localStorage.getItem("h"))
         this.sc = Number(localStorage.getItem("sc"))
+        this.whm = Number(localStorage.getItem("whm"))
         this.spaces = JSON.parse(localStorage.getItem("spaces"))
         this.rebuildSpace(tim)
       }

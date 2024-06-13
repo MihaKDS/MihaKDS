@@ -23,7 +23,7 @@ export default {
   data() {
     return{
       dm: 0.999,
-      de: 1000000.999,
+      de: 0.999,
       h: 0,
       sc: 0,
       whm: 1, //max wh size

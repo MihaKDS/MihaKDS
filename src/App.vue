@@ -23,7 +23,7 @@ export default {
   data() {
     return{
       dm: 0.999,
-      de: 0.999,
+      de: 1000000.999,
       h: 0,
       sc: 0,
       whm: 1, //max wh size
@@ -97,7 +97,7 @@ export default {
                 this.spaces[i].state = "sun"
                 this.spaces[i].value = this.spaces[i].end
                 if(document.getElementById("simg"+i) !== null){
-                  document.getElementById("simg"+i).setAttribute("src", iBlackHole)
+                  document.getElementById("simg"+i).setAttribute("src", iSun)
                 }
                 break
               }

@@ -10,8 +10,8 @@ import iPlus from '../assets/Plus.png'
 
 <template>
     <div class="uni">
-        <IconSingularity />
-        <div class="deiz">
+      <IconSingularity />
+      <div class="deiz">
             <TopStat>
                 <template #stat>
                     {{ de.toFixed(3) }}
@@ -105,7 +105,8 @@ import iPlus from '../assets/Plus.png'
     justify-content: center;
 }
 .deiz{
-    position: inherit;
+  top: 40vh;
+    position: absolute;
     justify-content: center;
 }
 .inv_items{
@@ -160,6 +161,7 @@ import iPlus from '../assets/Plus.png'
   }
 .spc{
     position: absolute;
+    top: 40vh;
 }
 #space0{
     animation: orbit0 256s linear infinite;
@@ -168,7 +170,7 @@ import iPlus from '../assets/Plus.png'
     animation: orbit1 300s linear infinite;
   }
   #space2{
-    animation: orbit2 365s linear infinite;
+    animation: orbit2 369s linear infinite;
   }
   #space3{
     animation: orbit3 512s linear infinite;
@@ -177,13 +179,13 @@ import iPlus from '../assets/Plus.png'
     animation: orbit4 444s linear infinite;
   }
   #space5{
-    animation: orbit5 456s linear infinite;
+    animation: orbit5 463s linear infinite;
   }
   #space6{
-    animation: orbit6 956s linear infinite;
+    animation: orbit6 965s linear infinite;
   }
   #space7{
-    animation: orbit7 956s linear infinite;
+    animation: orbit7 968s linear infinite;
   }
   .space_img{
     border-radius: 5em;

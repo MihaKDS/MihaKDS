@@ -4,6 +4,8 @@
 
 <style scoped>
 .iz_img{
+  position: absolute;
+  top: 35vh;
     height: 3em;
     z-index: 1;
 }

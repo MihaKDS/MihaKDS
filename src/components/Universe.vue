@@ -5,7 +5,6 @@ import IconDarkEnergy from './icons/IconDarkEnergy.vue';
 import IconSingularity from './icons/IconSingularity.vue';
 import iBlackHole from '../assets/bh.png'
 import iSun from '../assets/bbh.png'
-import iDMcolision from '../assets/dmtn.png'
 import iPlus from '../assets/Plus.png'
 </script>
 

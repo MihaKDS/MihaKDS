@@ -1,6 +1,10 @@
 <script setup>
 import TopIzpis from './components/TopIzpis.vue'
 import Universe from './components/Universe.vue'
+import iBlackHole from './assets/bh.png'
+import iSun from './assets/bbh.png'
+import iDMcolision from './assets/dmtn.png'
+import iPlus from './assets/Plus.png'
 </script>
 
 <template>
@@ -62,7 +66,7 @@ export default {
                 this.spaces[i].state = "wh"
                 this.spaces[i].value = this.spaces[i].end*100
                 if(document.getElementById("simg"+i) !== null){
-                  document.getElementById("simg"+i).setAttribute("src", "/bbh_rad.png")
+                  document.getElementById("simg"+i).setAttribute("src", iBlackHole)
                 }
                 break
               }
@@ -78,7 +82,7 @@ export default {
                   this.h = Math.round(this.h*1000)/1000
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
                   if(document.getElementById("simg"+i) !== null){
-                    document.getElementById("simg"+i).setAttribute("src", "/Plus.png")
+                    document.getElementById("simg"+i).setAttribute("src", iPlus)
                   }
                   break
                 }
@@ -93,7 +97,7 @@ export default {
                 this.spaces[i].state = "sun"
                 this.spaces[i].value = this.spaces[i].end
                 if(document.getElementById("simg"+i) !== null){
-                  document.getElementById("simg"+i).setAttribute("src", "/bbh.png")
+                  document.getElementById("simg"+i).setAttribute("src", iBlackHole)
                 }
                 break
               }
@@ -109,7 +113,7 @@ export default {
                   this.spaces[i].value = 0
                   this.spaces[i] = {id: i, state:"empty", value: 0, end: 0}
                   if(document.getElementById("simg"+i) !== null){
-                    document.getElementById("simg"+i).setAttribute("src", "/Plus.png")
+                    document.getElementById("simg"+i).setAttribute("src", iPlus)
                   }
                  break
                 }
@@ -168,7 +172,7 @@ export default {
             if(this.dm>= this.wh_size){
               this.dm -= this.wh_size
               this.spaces[id] = {id: id, state:"wh_nebula", value: 1, end: this.wh_size}
-              document.getElementById("simg"+id).setAttribute("src", "/dmtn.png")
+              document.getElementById("simg"+id).setAttribute("src", iDMcolision)
               this.saveTime()
               break
             }
@@ -177,7 +181,7 @@ export default {
             if(this.h >= (10**this.sunS)){  
               this.h -=10**this.sunS       
               this.spaces[id] = {id: id, state:"sun_nebula", value: 2, end: 10**this.sunS}
-              document.getElementById("simg"+id).setAttribute("src", "/dmtn.png")
+              document.getElementById("simg"+id).setAttribute("src", iDMcolision)
               this.saveTime()
               break
             }
@@ -274,16 +278,16 @@ export default {
       for(let y = 0; y<= this.spaces.length-1; y++){
         switch(this.spaces[y].state){
           case "wh_nebula":
-            document.getElementById("simg"+y).setAttribute("src", "/dmtn.png")
+            document.getElementById("simg"+y).setAttribute("src", iDMcolision)
           break  
           case "wh":
-            document.getElementById("simg"+y).setAttribute("src", "/bbh_rad.png")
+            document.getElementById("simg"+y).setAttribute("src", iBlackHole)
           break  
           case "sun_nebula":
-            document.getElementById("simg"+y).setAttribute("src", "/dmtn.png")
+            document.getElementById("simg"+y).setAttribute("src", iDMcolision)
           break  
           case "sun":
-            document.getElementById("simg"+y).setAttribute("src", "/bbh.png")
+            document.getElementById("simg"+y).setAttribute("src", iSun)
           break  
         }
       }

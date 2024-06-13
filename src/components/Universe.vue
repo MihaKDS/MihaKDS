@@ -3,6 +3,10 @@ import TopStat from './TopStat.vue';
 import Spaces from './Spaces.vue';
 import IconDarkEnergy from './icons/IconDarkEnergy.vue';
 import IconSingularity from './icons/IconSingularity.vue';
+import iBlackHole from '../assets/bh.png'
+import iSun from '../assets/bbh.png'
+import iDMcolision from '../assets/dmtn.png'
+import iPlus from '../assets/Plus.png'
 </script>
 
 <template>
@@ -22,7 +26,7 @@ import IconSingularity from './icons/IconSingularity.vue';
             <Spaces v-for="space in spaces" :id="'space'+space.id">
                 <template #spot>
                     <div :id="'spot'+space.id" @click="clickspace(space.id)">
-                      <img :id="'simg'+space.id" class="space_img" src="/Plus.png" >
+                      <img :id="'simg'+space.id" class="space_img" :src="iPlus" >
                     </div>
                   </template>
                   <template #stat><div :id="'stat'+space.id" v-if="space.state !== 'empty'">{{space.value.toFixed(1)}}</div></template>
@@ -45,11 +49,11 @@ import IconSingularity from './icons/IconSingularity.vue';
         </div>
         <div class="inv_items">
             <div class="itm" id="wh">
-            <img class="inv_img" src="/bbh_rad.png" @click="clickinven('wh')">
+            <img class="inv_img" :src="iBlackHole" @click="clickinven('wh')">
             <div class="itm_stat" id="iz_wh">white</div>
             </div>
             <div class="itm" id="sun">
-            <img class="inv_img" src="/bbh.png" @click="clickinven('sun')">
+            <img class="inv_img" :src="iSun" @click="clickinven('sun')">
             <div class="itm_stat" id="iz_wh"> sun{{ (3)**0 }}</div>
             </div>
         </div>

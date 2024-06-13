@@ -22,7 +22,7 @@ import IconSingularity from './icons/IconSingularity.vue';
             <Spaces v-for="space in spaces" :id="'space'+space.id">
                 <template #spot>
                     <div :id="'spot'+space.id" @click="clickspace(space.id)">
-                      <img :id="'simg'+space.id" class="space_img" src="../assets/Plus.png" >
+                      <img :id="'simg'+space.id" class="space_img" src="/Plus.png" >
                     </div>
                   </template>
                   <template #stat><div :id="'stat'+space.id" v-if="space.state !== 'empty'">{{space.value.toFixed(1)}}</div></template>
@@ -45,11 +45,11 @@ import IconSingularity from './icons/IconSingularity.vue';
         </div>
         <div class="inv_items">
             <div class="itm" id="wh">
-            <img class="inv_img" src="../assets/bbh_rad.png" @click="clickinven('wh')">
+            <img class="inv_img" src="/bbh_rad.png" @click="clickinven('wh')">
             <div class="itm_stat" id="iz_wh">white</div>
             </div>
             <div class="itm" id="sun">
-            <img class="inv_img" src="../assets/bbh.png" @click="clickinven('sun')">
+            <img class="inv_img" src="/bbh.png" @click="clickinven('sun')">
             <div class="itm_stat" id="iz_wh"> sun{{ (3)**0 }}</div>
             </div>
         </div>

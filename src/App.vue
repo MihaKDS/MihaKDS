@@ -18,7 +18,7 @@ import Universe from './components/Universe.vue';
 export default {
   data() {
     return{
-      dm: 4.999,
+      dm: 0.999,
       de: 0.999,
       h: 0,
       sc: 0,
@@ -316,11 +316,12 @@ export default {
 
 <style scoped>
 .ti{
+  margin-top: 0.2vh;
   position:absolute;
   left:0.2em;
 }
 .uni{
-  height: 95vh;
+  height: 99.8vh;
   position: inherit;
 }
 </style>

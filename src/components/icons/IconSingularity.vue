@@ -4,7 +4,7 @@
 
 <style scoped>
 .iz_img{
-    height: 4em;
+    height: 3em;
     z-index: 1;
 }
 </style>

@@ -110,15 +110,15 @@ import IconSingularity from './icons/IconSingularity.vue';
     border: 2px solid gray;
     border-radius: 10px;
     width: 90%;
-    margin: 1em;
-    bottom: 3em;
+    margin: 0.5em;
+    bottom: 0.01em;
   }
   .itm{
     display: inline-block;
     border: 2px solid gray;
     border-radius: 10px;
-    height: 4em;
-    width: 4em;
+    height: 2em;
+    width: 2em;
     margin: 0.5em;
   }
   #it1{
@@ -131,8 +131,8 @@ import IconSingularity from './icons/IconSingularity.vue';
     border-color: yellow;
   }
 .inv_img{
-    height: 4em;
-    width: 4em;
+    height: 2em;
+    width: 2em;
     background-color: white;
     border-radius: 7px;
   }
@@ -140,10 +140,11 @@ import IconSingularity from './icons/IconSingularity.vue';
     display: none;
     position: absolute;
     border: 2px solid gray;
+    background-color: whitesmoke;
     border-radius: 10px;
     width: 90%;
     margin: 1em;
-    bottom: 10em;
+    bottom: 3.8em;
   }
   .inv_setting{
     display: inline-flex;
@@ -175,10 +176,16 @@ import IconSingularity from './icons/IconSingularity.vue';
   #space5{
     animation: orbit5 456s linear infinite;
   }
+  #space6{
+    animation: orbit6 956s linear infinite;
+  }
+  #space7{
+    animation: orbit7 956s linear infinite;
+  }
   .space_img{
     border-radius: 5em;
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     z-index: -1;
     float: left;
   }
@@ -192,10 +199,10 @@ import IconSingularity from './icons/IconSingularity.vue';
   }
   @keyframes orbit1 {
     from {
-      transform: rotate(0deg) translateX(-10em) translateY(5em) rotate(0deg);
+      transform: rotate(0deg) translateX(-7em) translateY(5em) rotate(0deg);
     }
     to {
-      transform: rotate(360deg) translateX(-10em) translateY(5em) rotate(-360deg);
+      transform: rotate(360deg) translateX(-7em) translateY(5em) rotate(-360deg);
     }
   }
   @keyframes orbit2 {
@@ -228,6 +235,22 @@ import IconSingularity from './icons/IconSingularity.vue';
     }
     to {
       transform: rotate(360deg) translateX(-10em) translateY(13em) rotate(-360deg);
+    }
+  }
+  @keyframes orbit6 {
+    from {
+      transform: rotate(0deg) translateX(0em) translateY(20em) rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg) translateX(0em) translateY(20em) rotate(-360deg);
+    }
+  }
+  @keyframes orbit7 {
+    from {
+      transform: rotate(0deg) translateX(-3em) translateY(-20em) rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg) translateX(-3em) translateY(-20em) rotate(-360deg);
     }
   }
 </style>

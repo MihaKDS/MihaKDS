@@ -24,8 +24,8 @@
   justify-content: center;
   border: 2px solid gray;
   border-radius: 5em;
-  width: 4em;
-  height: 4em;
+  width: 3em;
+  height: 3em;
 }
 .numbers{
   position: inherit;

@@ -14,11 +14,12 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  margin: 0.2em;
+  margin: 0.1em;
   justify-content: end;
-  padding: 0.1em;
-  max-height: 2em;
-  width: 6em;
+  align-items: center;
+  text-align: center;
+  max-height: 1.5em;
+  width: 5em;
   min-width: 5em;
   max-width:  8em;
   border:1px solid black;

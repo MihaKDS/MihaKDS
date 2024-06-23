@@ -145,8 +145,8 @@ export default {
       ],
       invSun: JSON.parse(localStorage.getItem("invSun")) || [
         {id: 0, name: "bd", qnt: 0, value: 10},
-        {id: 1, name: "s", qnt: 0, value: 100},
-        {id: 2, name: "ms", qnt: 0, value: 1000},
+        {id: 1, name: "s", qnt: 2, value: 100},
+        {id: 2, name: "ms", qnt: 2, value: 1000},
         //{id: 3, name: "gs", qnt: 0, value: 10000},
         //{id: 4, name: "sgs", qnt: 0, value: 100000},
       ],
@@ -347,9 +347,10 @@ export default {
             }
           break
           case "s":
+            console.log(this.spaces)
             if(this.invSun[1].qnt >= 1){  
               this.invSun[1].qnt -= 1       
-              this.spaces[id] = {id: id, state:"sun", value: this.invSun[1].value + this.invSun[0], end: this.invSun[1] + this.invSun[0].value, item: "s"}
+              this.spaces[id] = {id: id, state:"sun", value: this.invSun[1].value + this.invSun[0].value, end: this.invSun[1].value + this.invSun[0].value, item: "s"}
               document.getElementById("simg"+id).setAttribute("src", iSunRad)
               this.saveTime()
               break
@@ -358,7 +359,7 @@ export default {
           case "ms":
             if(this.invSun[2].qnt >= 1){  
               this.invSun[2].qnt -= 1       
-              this.spaces[id] = {id: id, state:"sun", value: this.invSun[2].value + this.invSun[1], end: this.invSun[2].value + this.invSun[1], item: "ms"}
+              this.spaces[id] = {id: id, state:"sun", value: this.invSun[2].value + this.invSun[1].value, end: this.invSun[2].value + this.invSun[1].value, item: "ms"}
               document.getElementById("simg"+id).setAttribute("src", iSunRad)
               this.saveTime()
               break

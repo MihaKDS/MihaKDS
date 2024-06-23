@@ -1,25 +1,25 @@
 <script setup>
 import TopStat from '../components/TopStat.vue'
-import IconDarkMatter from '../components/icons/IconDarkMatter.vue'
-import IconDarkEnergy from './icons/IconDarkEnergy.vue';
+import icnDM from '../../assets/d-matter.png'
+import icnDe from '../../assets/d-energy.png'
 </script>
 
 <template>
     <div class="ti">
         <TopStat>
             <template #stat>
-                {{ dm.toFixed(3) }}
+                {{ 1 }}
             </template>
             <template #icon>
-                <IconDarkMatter></IconDarkMatter>
+                <icnDM></icnDM>
             </template>
         </TopStat>
         <TopStat>
             <template #stat>
-                {{ Math.floor(h) }}
+                {{ 1 }}
             </template>
             <template #icon>
-                <IconDarkEnergy></IconDarkEnergy>
+                <icnDE></icnDE>
             </template>
         </TopStat>
     </div>

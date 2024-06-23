@@ -145,8 +145,8 @@ export default {
       ],
       invSun: JSON.parse(localStorage.getItem("invSun")) || [
         {id: 0, name: "bd", qnt: 0, value: 10},
-        {id: 1, name: "s", qnt: 2, value: 100},
-        {id: 2, name: "ms", qnt: 2, value: 1000},
+        {id: 1, name: "s", qnt: 0, value: 100},
+        {id: 2, name: "ms", qnt: 0, value: 1000},
         //{id: 3, name: "gs", qnt: 0, value: 10000},
         //{id: 4, name: "sgs", qnt: 0, value: 100000},
       ],

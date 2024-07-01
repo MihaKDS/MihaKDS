@@ -6,6 +6,8 @@
   import icnDE from '../components/icons/IconDarkEnergy.vue'
   import icnSNG from '../components/icons/IconSingularity.vue'
 
+  import { RouterLink, RouterView } from 'vue-router'
+
   import iBlackHole from '../assets/bh.png'
   import iDcoin from '../assets/dc.png'
   import iSun from '../assets/bbh.png'
@@ -17,7 +19,6 @@
 <template>
   <main>
     <div class="topStats">
-      <button @click="deleteTime">delete localstorage</button>
       <TopStat>
         <template #stat>
             {{ dDm }}
@@ -43,8 +44,15 @@
         </template>
       </TopStat>
     </div>
+    <button @click="deleteTime">delete ls</button>
     <div class="universe">
-      <icnSNG @click="showCRT()" /> 
+      <div class="btnGame">
+        <RouterLink to="/RPS">RPS</RouterLink>
+      </div>
+      <div class="btnGame">
+        <RouterLink to="/SC">SC</RouterLink>
+      </div>
+      <icnSNG class="ds_img" @click="showCRT()" /> 
       <div class="deiz">
         <TopStat>
             <template #stat>
@@ -72,7 +80,7 @@
           <div class="inv_setting" v-for="i in whm" :id="'it'+i" @click="whiteHole(i)">
             {{((0.1*(Math.PI)**i)).toFixed(2)}}
           </div >
-          <div class="inv_setting" id="whup" @click="whiteHole('up')">{{((0.1*(Math.PI)**(whm+3))).toFixed(2)}}DM</div>
+          <div class="inv_setting" id="whup" @click="whiteHole('up')">{{((0.1*(Math.PI)**(whm+2))).toFixed(2)}}DM</div>
         </div>
         <div v-show="tmp_inv === 'sun_nebula'">
           <div>Create Sun:</div>
@@ -81,6 +89,16 @@
         <div v-show="tmp_inv === 'dcoin'">
           <div>Create DarkCoin:</div>
           <div class="inv_setting" v-for="i in 1" :id="'dc'+i">{{1}}DM</div>
+          <p class="inv_setting"> {{dc_t + "/5," + dc_count}} </p>
+        </div>
+        <div v-show="tmp_inv === 'bd'">
+          <div>Brown dwarf</div>
+        </div>
+        <div v-show="tmp_inv === 's'">
+          <div>Star</div>
+        </div>
+        <div v-show="tmp_inv === 'ms'">
+          <div>Massive Star</div>
         </div>
       </div>
       <div class="inv_items">
@@ -136,7 +154,9 @@ export default {
       tim: localStorage.getItem("tim") || gTim,
       dm: Number(localStorage.getItem("dm")) || 0.999,
       de: Number(localStorage.getItem("de")) || 0.999,
-      dc: Number(localStorage.getItem("dc")) || 0,
+      dc: Number(localStorage.getItem("dc")) || 5,
+      dc_t: Number(localStorage.getItem("dc_t")) || 5,
+      dc_count: Number(localStorage.getItem("dc_count")) || 0,
       h:  Number(localStorage.getItem("h")) || 99,
       sc: Number(localStorage.getItem("sc")) || 0,
       whm: Number(localStorage.getItem("whm")) || 1,
@@ -174,6 +194,14 @@ export default {
       }else{
           this.de = 0
       }
+      if(this.dc_t <5){
+        this.dc_count ++
+        if(this.dc_count >= 10000){
+          this.dc_t ++
+          this.dc ++
+          this.dc_count = 0
+        }
+      }
     },
     spacesSpacetime: function() {
       for(let i = 0; i <= this.spaces.length-1; i++){
@@ -202,7 +230,7 @@ export default {
                 this.spaces[i].value -=1
                 break
               }else if(this.spaces[i].value <=0){
-                for(let y = 0; y < this.invSun.length-1; y++){
+                for(let y = 0; y < this.invSun.length; y++){
                   if(this.spaces[i].item === this.invSun[y].name){
                     this.invSun[y].qnt ++
                     this.spaces[i] = {id: i, state:"empty", value: 0, end: 0, item: "nic"}
@@ -256,11 +284,11 @@ export default {
           if(this.spaces[this.sc] != undefined){
             if(this.spaces[this.sc].state != "empty") 
               switch(this.spaces[this.sc].state){
-                case "wh_nebula":
-                  this.dm += this.spaces[this.sc].end * 0.9 
+                case "sun_nebula":
+                  this.h += (this.spaces[this.sc].end) * 0.9 
                 break
                 case "wh":
-                  this.dm += (this.spaces[this.sc].value/100) * 0.9
+                  this.dm += (this.spaces[this.sc].value*0.9) * 0.01
                 break
                 case "sun":
                   this.h += this.spaces[this.sc].value *0.9
@@ -277,10 +305,13 @@ export default {
               case "empty":
               break
               case "wh":
-                this.dm += this.spaces[1].value 
+                this.dm += (this.spaces[1].value*0.9)*0.01 
               break
               case "sun":
-                this.h += this.spaces[1].value 
+                this.h += this.spaces[1].value  * 0.9
+              break
+              case "sun_nebula":
+                  this.h += (this.spaces[1].end) * 0.9 
               break   
             }
           }
@@ -303,7 +334,7 @@ export default {
             }
           break
           case "sun_nebula":
-            for(let i = 0; i < this.invSun.length-1; i++){
+            for(let i = 0; i < this.invSun.length; i++){
               if(this.invSun[i].value === 10**this.sunS){
                 this.tmp_sun = this.invSun[i].name
                 tmp_st = i
@@ -312,15 +343,17 @@ export default {
             if(this.h >= (10**this.sunS)){ 
               if(tmp_st === 0){
                 this.h -=10**this.sunS 
-                this.spaces[id] = {id: id, state:"sun_nebula", value: 10**this.sunS, end: 10**this.sunS, item: this.tmp_sun}
+                this.spaces[id] = {id: id, state:"sun_nebula", value: 10**this.sunS/10, end: 10**this.sunS/10, item: this.tmp_sun}
                 document.getElementById("simg"+id).setAttribute("src", iDMcolision)
                 this.saveTime()
                 break
               }else{
+                console.log(tmp_st)
+                console.log(this.invSun[(tmp_st-1)])
                 if(this.invSun[tmp_st-1].qnt >= 1){
                   this.h -=10**this.sunS  
                   this.invSun[tmp_st-1].qnt -= 1     
-                  this.spaces[id] = {id: id, state:"sun_nebula", value: 10**this.sunS, end: 10**this.sunS, item: this.tmp_sun}
+                  this.spaces[id] = {id: id, state:"sun_nebula", value: 10**this.sunS/10, end: 10**this.sunS/10, item: this.tmp_sun}
                   document.getElementById("simg"+id).setAttribute("src", iDMcolision)
                   this.saveTime()
                   break
@@ -331,7 +364,7 @@ export default {
           case "dcoin":
             if(this.dm >= 1){  
               this.dm -= 1       
-              this.spaces[id] = {id: id, state:"dcoin", value: 3600, end: 3600, item: "dc"}
+              this.spaces[id] = {id: id, state:"dcoin", value: 974, end: 974, item: "dc"}
               document.getElementById("simg"+id).setAttribute("src", iDcoin)
               this.saveTime()
               break
@@ -347,7 +380,6 @@ export default {
             }
           break
           case "s":
-            console.log(this.spaces)
             if(this.invSun[1].qnt >= 1){  
               this.invSun[1].qnt -= 1       
               this.spaces[id] = {id: id, state:"sun", value: this.invSun[1].value + this.invSun[0].value, end: this.invSun[1].value + this.invSun[0].value, item: "s"}
@@ -410,6 +442,7 @@ export default {
           }
         break
         case "dcoin":
+          console.log(this.dc_t)
           if(this.tmp_inv === "nic"){
             document.getElementById("dcoin").style.borderColor = "yellow"
             document.getElementById("invset").style.display = "block"
@@ -527,12 +560,14 @@ export default {
     },
     whiteHole: function(i){
       if(i === "up"){
-        if(this.dm >= ((0.1*(Math.PI)**(this.whm+3)))){
-          this.dm -= ((0.1*(Math.PI)**(this.whm)))
+        if(this.dm >= ((0.1*(Math.PI)**(this.whm+2)))){
+          this.dm -= ((0.1*(Math.PI)**(this.whm+2)))
           this.whm ++
         }
       }else{
         this.whs = i
+        this.wh_size = ((0.1*(Math.PI)**(this.whs)))
+        console.log(this.wh_size)
         for(let y = 1; y<=this.whm; y++){
           document.getElementById("it"+y).style.borderColor = "gray"
         }
@@ -564,6 +599,8 @@ export default {
       localStorage.setItem('dm', this.dm)
       localStorage.setItem('de', this.de)
       localStorage.setItem('dc', this.dc)
+      localStorage.setItem('dc_t', this.dc_t)
+      localStorage.setItem('dc_count', this.dc_count)
       localStorage.setItem('h', this.h)
       localStorage.setItem('sc', this.sc)
       localStorage.setItem('whm', this.whm)
@@ -577,10 +614,10 @@ export default {
         this.countSpaces()
         this.spacesSpacetime()
       }
-      this.saveTime()
     },
     sunSet: function(i){
       this.sunS = i      
+      console.log(this.sunS)
         for(let y = 1; y <= 3; y++){
           document.getElementById("sun"+y).style.borderColor = "gray"
         }
@@ -599,7 +636,27 @@ export default {
     },
     showCRT: function(){
       this.showCreat = !this.showCreat
-      console.log(this.showCreat)
+    }
+  },
+  created(){
+    if(localStorage.getItem("dc") === null){
+      console.log("saved")
+      this.saveTime()
+    }
+    if(localStorage.getItem("dm") === "0"){
+      this.dm = 0
+    }
+    if(localStorage.getItem("de") === "0"){
+      this.de = 0
+    }
+    if(localStorage.getItem("dc") === "0"){
+      this.dc = 0
+    }
+    if(localStorage.getItem("dc_t") === "0"){
+      this.dc_t = 0
+    }
+    if(localStorage.getItem("h") === "0"){
+      this.h = 0
     }
   },
   mounted(){
@@ -621,18 +678,36 @@ export default {
 .topStats
 {
   display: flex;
+  justify-content: space-between;
+
 }
 .universe
 {
-  background-color: darkgray;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
+}
+.btnGame{
+  display: flex;
+  align-self: flex-end;
+  align-items: center; 
+  justify-content: center;
+  border: 2px solid whitesmoke;
+  background-color: white;
+  border-radius: 5em;
+  width: 2em;
+  height: 2em;
+  
+}
+.ds_img{
+  background-color: whitesmoke;
+  border-radius: 5em;
 }
 .deiz
 {
-  top: 40vh;
+  top: 41vh;
   position: absolute;
   justify-content: center;
 }
@@ -642,16 +717,18 @@ export default {
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-  border: 2px solid gray;
+  border: 2px solid whitesmoke;
+  background-image: linear-gradient(to bottom right, rgb(114, 103, 103), rgb(206, 206, 206));
   border-radius: 10px;
   width: 90%;
   height: 9%;
   margin: 0.5em;
   bottom: 0.01em;
+  padding-bottom: 1em;
 }
 .itm{
   display: inline-block;
-  border: 2px solid gray;
+  border: 2px solid whitesmoke;
   border-radius: 10px;
   height: 2em;
   width: 2em;
@@ -683,7 +760,7 @@ export default {
   border-radius: 10px;
   width: 90%;
   margin: 1em;
-  bottom: 9vh;
+  bottom: 10vh;
 }
 .inv_setting{
   display: inline-flex;
@@ -733,6 +810,7 @@ export default {
 .spc{
   position: absolute;
   top: 40vh;
+  color: whitesmoke;
 }
 #space0{
   animation: orbit0 256s linear infinite;

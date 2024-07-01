@@ -20,7 +20,7 @@
   align-items: center;
   text-align: center;
   max-height: 1.5em;
-  min-width: 3em;
+  min-width: 5em;
   max-width:  8em;
   border:1px solid black;
   color: black;

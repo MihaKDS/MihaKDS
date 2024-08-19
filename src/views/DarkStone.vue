@@ -10,10 +10,13 @@
 
   import iBlackHole from '../assets/bh.png'
   import iDcoin from '../assets/dc.png'
-  import iSun from '../assets/bbh.png'
+  import iSun from '../assets/sun.jpg'
   import iSunRad from '../assets/bbh_rad.png'
   import iDMcolision from '../assets/dmtn.png'
   import iPlus from '../assets/Plus.png'
+  import iSc from '../assets/sc.jpg'
+  import iRps from '../assets/rps.jpg'
+  import iBds from '../assets/bds.jfif'
 </script>
 
 <template>
@@ -44,24 +47,31 @@
         </template>
       </TopStat>
     </div>
-    <button @click="deleteTime">delete ls</button>
+    <div class="btnNavigation">
+      <div class="btnGame">
+        <RouterLink to="/RPS">
+          <img class="space_img" :src="iRps">
+        </RouterLink>
+      </div><br>
+      <div class="btnGame">
+        <RouterLink to="/SC">
+          <img class="space_img" :src="iSc">
+        </RouterLink>
+      </div>
+    </div>
     <div class="universe">
-      <div class="btnGame">
-        <RouterLink to="/RPS">RPS</RouterLink>
-      </div>
-      <div class="btnGame">
-        <RouterLink to="/SC">SC</RouterLink>
-      </div>
-      <icnSNG class="ds_img" @click="showCRT()" /> 
-      <div class="deiz">
-        <TopStat>
-            <template #stat>
-                {{ dDe }}
-            </template>
-            <template #icon>
-                <icnDE/>
-            </template>
-        </TopStat>
+      <div class="centerU">
+        <icnSNG class="ds_img" /> 
+        <div class="deiz">
+          <TopStat>
+              <template #stat>
+                  {{ dDe }}
+              </template>
+              <template #icon>
+                  <icnDE/>
+              </template>
+          </TopStat>
+        </div>
       </div>
       <div class="spc">
         <Spaces v-for="space in spaces" :id="'space'+space.id">
@@ -74,64 +84,54 @@
             <template #number class="iz_spc">{{ space.id }}</template>
         </Spaces>
       </div>
-      <div class="inv_set" id="invset">
-        <div v-show="tmp_inv === 'wh'">
-          <div>Create White hole:</div>
-          <div class="inv_setting" v-for="i in whm" :id="'it'+i" @click="whiteHole(i)">
-            {{((0.1*(Math.PI)**i)).toFixed(2)}}
-          </div >
-          <div class="inv_setting" id="whup" @click="whiteHole('up')">{{((0.1*(Math.PI)**(whm+2))).toFixed(2)}}DM</div>
-        </div>
-        <div v-show="tmp_inv === 'sun_nebula'">
-          <div>Create Sun:</div>
-          <div class="inv_setting" v-for="i in 3" :id="'sun'+i" @click="sunSet(i)">{{10**i}}H</div>
-        </div>
-        <div v-show="tmp_inv === 'dcoin'">
-          <div>Create DarkCoin:</div>
-          <div class="inv_setting" v-for="i in 1" :id="'dc'+i">{{1}}DM</div>
-          <p class="inv_setting"> {{dc_t + "/5," + dc_count}} </p>
-        </div>
-        <div v-show="tmp_inv === 'bd'">
-          <div>Brown dwarf</div>
-        </div>
-        <div v-show="tmp_inv === 's'">
-          <div>Star</div>
-        </div>
-        <div v-show="tmp_inv === 'ms'">
-          <div>Massive Star</div>
+    </div>
+    <div class="inv_set" id="invset">
+      <div v-show="tmp_inv === 'wh'">
+        <div>Create White hole:</div>
+        <div class="inv_setting" v-for="i in whm" :id="'it'+i" @click="whiteHole(i)">
+          {{((0.1*(Math.PI)**i)).toFixed(2)}}
+        </div >
+        <div class="inv_setting" id="whup" @click="whiteHole('up')">{{((0.1*(Math.PI)**(whm+2))).toFixed(2)}}DM</div>
+      </div>
+      <div v-show="tmp_inv === 'sun_nebula'">
+        <div>Create Sun:</div>
+        <div class="inv_setting" v-for="i in 3" :id="'sun'+i" @click="sunSet(i)">{{10**i}}H</div>
+      </div>
+      <div v-show="tmp_inv === 'dcoin'">
+        <div>Create DarkCoin:</div>
+        <div class="inv_setting" v-for="i in 1" :id="'dc'+i">{{1}}DM</div>
+      </div>
+    </div>
+    <div class="game_panel">
+      <div class="cCrt" v-if="sCreate">
+        <div class="navCrt">Create</div>
+        <div class="navInv" @click="show('inv')">Inventory</div>
+        <div class="creations">
+          <div class="itm" id="sun_nebula">
+            <img class="inv_img" :src="iSun" @click="invenClick('sun_nebula')">
+            <div class="itm_stat" id="iz_sun"> Sun</div>
+          </div>
+          <div class="itm" id="wh">
+            <img class="inv_img" :src="iBlackHole" @click="invenClick('wh')">
+            <div class="itm_stat" id="iz_wh">WH</div>
+          </div>
+          <div class="itm" id="dcoin">
+            <img class="inv_img" :src="iDcoin" @click="invenClick('dcoin')">
+            <div class="itm_stat" id="iz_dc"> DC</div>
+          </div>
         </div>
       </div>
-      <div class="inv_items">
-        <div class="itm" id="dcoin">
-          <img class="inv_img" :src="iDcoin" @click="invenClick('dcoin')">
-          <div class="itm_stat" id="iz_dc"> DC</div>
-        </div>
-        <div class="itm" id="wh">
-        <img class="inv_img" :src="iBlackHole" @click="invenClick('wh')">
-        <div class="itm_stat" id="iz_wh">WH</div>
-        </div>
-        <div class="itm" id="sun_nebula">
-        <img class="inv_img" :src="iSun" @click="invenClick('sun_nebula')">
-        <div class="itm_stat" id="iz_sun"> Sun</div>
-        </div>
-        <div class="itm" v-for="sun in invSun" :id="sun.name" @click="invenClick(sun.name)">
-          <img class="inv_img" :src="iDMcolision">
-          <div>{{sun.name +":"+sun.qnt}}</div>
+      <div class="cInv" v-if="sInventory">
+        <div class="navCrt2" @click="show('crt')">Create</div>
+        <div class="navInv2">Inventory</div>
+        <div class="storage">
+          <div class="itm" v-for="sun in invSun" :id="sun.name" @click="invenClick(sun.name)">
+            <img class="inv_img" :id="sun.name" :src="iDMcolision">
+            <div>{{sun.name +":"+sun.qnt}}</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="creations" v-show="showCreat"> 
-      <div @click="showCRT()">Close</div>
-      <div class="crt_sun" v-for="i in 5" :id="'crtS'+i" @click="crtClick(i-1)">
-        <div>{{10**i}}H</div>
-      </div>  
-      <div class="crt_wait">
-        <div @click="crtCreate()">
-          <img class="crt_img" :src="iPlus" >
-        </div>
-      </div>
-      
-    </div> 
   </main>
 </template>
 
@@ -149,7 +149,9 @@ export default {
       sunS: 1,// selected sun
       whs: 1, // selected wh size
       wh_size: (0.1*(Math.PI)**1), //compute wh_size
-      showCreat: false,
+
+      sCreate: true,
+      sInventory: false,
 
       tim: localStorage.getItem("tim") || gTim,
       dm: Number(localStorage.getItem("dm")) || 0.999,
@@ -412,6 +414,7 @@ export default {
           }else if(this.tmp_inv === "wh"){
             document.body.style.cursor = "default"
             document.getElementById("wh").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "wh"){
@@ -432,6 +435,7 @@ export default {
           }else if(this.tmp_inv === "sun_nebula"){
             document.body.style.cursor = "default"
             document.getElementById("sun_nebula").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "sun_nebula"){
@@ -452,6 +456,7 @@ export default {
           }else if(this.tmp_inv === "dcoin"){
             document.body.style.cursor = "default"
             document.getElementById("dcoin").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "dcoin"){
@@ -471,6 +476,7 @@ export default {
           }else if(this.tmp_inv === "bd"){
             document.body.style.cursor = "default"
             document.getElementById("bd").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "bd"){
@@ -490,6 +496,7 @@ export default {
           }else if(this.tmp_inv === "s"){
             document.body.style.cursor = "default"
             document.getElementById("s").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "s"){
@@ -509,6 +516,7 @@ export default {
           }else if(this.tmp_inv === "ms"){
             document.body.style.cursor = "default"
             document.getElementById("ms").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "ms"){
@@ -528,6 +536,7 @@ export default {
           }else if(this.tmp_inv === "gs"){
             document.body.style.cursor = "default"
             document.getElementById("gs").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "gs"){
@@ -547,6 +556,7 @@ export default {
           }else if(this.tmp_inv === "sgs"){
             document.body.style.cursor = "default"
             document.getElementById("sgs").style.borderColor = "gray"
+            document.getElementById("invset").style.display = "none"
             this.tmp_inv = "nic"
             break
           }else if(this.tmp_inv !== "sgs"){
@@ -572,6 +582,19 @@ export default {
           document.getElementById("it"+y).style.borderColor = "gray"
         }
         document.getElementById("it"+this.whs).style.borderColor = "yellow"
+      }
+    },
+    show: function(show){
+      if(show === 'inv'){
+        this.sInventory = !this.sInventory
+        this.sCreate = !this.sCreate
+        document.body.style.cursor = "default"
+            this.tmp_inv = "nic"
+      }else if(show === 'crt'){
+        this.sCreate = !this.sCreate
+        this.sInventory = !this.sInventory
+        document.body.style.cursor = "default"
+        this.tmp_inv = "nic"
       }
     },
     resetImg: function(){
@@ -634,9 +657,6 @@ export default {
     deleteTime: function(){
         localStorage.clear()
     },
-    showCRT: function(){
-      this.showCreat = !this.showCreat
-    }
   },
   created(){
     if(localStorage.getItem("dc") === null){
@@ -675,41 +695,140 @@ export default {
 </script>
 
 <style scoped>
-.topStats
-{
+#bd{
+  content: v-bind(iBds);
+}
+
+.game_panel{
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  height: 13vh;
+  width: 100vw;
+  color: whitesmoke;
+  z-index: 3;
+}
+.navCrt{
+  background-color:#282828;
+  box-shadow: 0.1vh -0.5vh 5vh black;
+  text-shadow: 2px 2px black;
+  text-align: center;
+  width: 50vw;
+  height: 3.5vh;
+  border-radius: 50% 50% 100% 0 / 50% 100% 50% 0;
+}
+.navInv{
+  position: absolute;
+  border-top: 1px solid black;
+  right: 0%;
+  background-color: gray;
+  text-align: center;
+  width: 50vw;
+  height: 3.5vh;
+  top: -0.01em;
+  z-index: 1;
+  box-shadow:
+  0.1vh -0.5vh 5vh black,
+  inset 0.1vh -0.1vh 2vh black;
+  text-shadow: 2px 2px black;
+  border-radius: 50% 50% 0 100% / 100% 50% 0 50% ;
+}
+.creations{
+  position: absolute;
+  bottom: 0%;
+  height: 10.5vh;
+  width: 100vw;
+  z-index: 0;
+  background-color:#282828;
+  background-size:16px 16px;
+}
+.navCrt2{
+  position: absolute;
+  background-color:#282828;
+  box-shadow: 
+  0.1vh -0.5vh 1vh black,
+  inset 0.1vh -0.1vh 2vh black;
+  text-shadow: 2px 2px black;
+  background-size:16px 16px;
+  background-size:16px 16px;
+  text-align: center;
+  z-index: 1;
+  width: 50vw;
+  height: 3.5vh;
+  border-radius: 50% 50% 100% 0 / 50% 100% 50% 0;
+}
+.navInv2{
+  position: absolute;
+  border-top: 1px solid black;
+  right: 0%;
+  background-color: gray;
+  text-align: center;
+  width: 50vw;
+  height: 3.5vh;
+  top: -0.01em;
+  z-index: 0;
+  box-shadow: 
+  0.1vh -0.5vh 5vh black;
+  text-shadow: 2px 2px black;
+  border-radius: 50% 50% 0 100% / 100% 50% 0 50% ;
+}
+.storage{
+  position: absolute;
+  bottom: 0%;
+  height: 10.5vh;
+  width: 100vw;
+  z-index: 0;
+  background-color:gray;
+  background-size:16px 16px;
+}
+.topStats{
+  position: fixed;
+  width: 100vw;
+  
   display: flex;
   justify-content: space-between;
-
 }
-.universe
-{
+.universe{
+  position: absolute;
+  top: 0;
   display: flex;
+  height: 100vh;
+  width: 100vw;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  overflow: hidden;
+}
+.btnNavigation{
+  position: fixed;
+  top: 7vh;
+  right: 4vw;
+  z-index: 2;
 }
 .btnGame{
   display: flex;
   align-self: flex-end;
   align-items: center; 
   justify-content: center;
-  border: 2px solid whitesmoke;
   background-color: white;
   border-radius: 5em;
   width: 2em;
   height: 2em;
-  
+}
+.centerU{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
 }
 .ds_img{
   background-color: whitesmoke;
   border-radius: 5em;
 }
-.deiz
-{
-  top: 41vh;
-  position: absolute;
-  justify-content: center;
+.deiz{
+    justify-content: center;
 }
 .inv_items{
   position: absolute;
@@ -725,6 +844,7 @@ export default {
   margin: 0.5em;
   bottom: 0.01em;
   padding-bottom: 1em;
+  z-index: 3;
 }
 .itm{
   display: inline-block;
@@ -732,7 +852,7 @@ export default {
   border-radius: 10px;
   height: 2em;
   width: 2em;
-  margin: 0.5em;
+  margin: 0.9em;
 }
 #it1{
   border-color: yellow;
@@ -754,13 +874,13 @@ export default {
 }
 .inv_set{
   display: none;
-  position: absolute;
-  border: 2px solid gray;
+  position: fixed;
+  border: 1px solid gray;
   background-color: whitesmoke;
   border-radius: 10px;
-  width: 90%;
-  margin: 1em;
-  bottom: 10vh;
+  width: 100vw;
+  bottom: 13vh;
+  z-index: 4;
 }
 .inv_setting{
   display: inline-flex;
@@ -771,15 +891,6 @@ export default {
   width: 4em;
   margin: 0.5em;
 }
-.creations
-{
-  position: relative;
-  color: red;
-  height: 100vh;
-  width: 100%;
-  z-index: 1;
-  background-color: gray;
-}
 .crt_sun{
   color: white;
   display: inline-block;
@@ -787,9 +898,7 @@ export default {
   border: 2px solid whitesmoke;
   border-radius: 10px;
   height: 1.5em;
-  width: 5em;
-  margin: 0.5em;
-}
+  width: 5em;}
 .crt_wait{
   border: 2px solid white;
   background-color: whitesmoke;
@@ -801,7 +910,7 @@ export default {
 }
 .crt_img{
   height: 9vh;
-  width: 9vh;
+  width: 9vw;
   background-color: white;
   border: 1px solid gray;
   border-radius: 7px;
@@ -809,32 +918,51 @@ export default {
 }
 .spc{
   position: absolute;
-  top: 40vh;
+  width: 200vw;
+  height: 100vh;
   color: whitesmoke;
+  overflow: auto;
+  z-index: 1;
 }
 #space0{
-  animation: orbit0 256s linear infinite;
+  top: 50vh;
+  left: 100vw;
+  animation: orbit0 239s linear infinite;
 }
 #space1{
+  top: 50vh;
+  left: 100vw;
   animation: orbit1 300s linear infinite;
 }
 #space2{
+  top: 50vh;
+  left: 100vw;
   animation: orbit2 369s linear infinite;
 }
 #space3{
+  top: 50vh;
+  left: 100vw;
   animation: orbit3 512s linear infinite;
 }
 #space4{
+  top: 50vh;
+  left: 100vw;
   animation: orbit4 444s linear infinite;
 }
 #space5{
-  animation: orbit5 463s linear infinite;
+  top: 50vh;
+  left: 100vw;
+  animation: orbit5 439s linear infinite;
 }
 #space6{
-  animation: orbit6 965s linear infinite;
+  top: 50vh;
+  left: 100vw;
+  animation: orbit6 916s linear infinite;
 }
 #space7{
-  animation: orbit7 968s linear infinite;
+  top: 50vh;
+  left: 100vw;
+  animation: orbit7 962s linear infinite;
 }
 .space_img{
   border-radius: 5em;
@@ -845,42 +973,42 @@ export default {
 }
 @keyframes orbit0 {
   from {
-    transform: rotate(0deg) translateX(6em) translateY(-5em) rotate(0deg);
+    transform: rotate(0deg) translateX(8em) translateY(-5em) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(6em) translateY(-5em) rotate(-360deg);
+    transform: rotate(360deg) translateX(8em) translateY(-5em) rotate(-360deg);
   }
 }
 @keyframes orbit1 {
   from {
-    transform: rotate(0deg) translateX(-7em) translateY(5em) rotate(0deg);
+    transform: rotate(0deg) translateX(-13em) translateY(5em) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(-7em) translateY(5em) rotate(-360deg);
+    transform: rotate(360deg) translateX(-13em) translateY(5em) rotate(-360deg);
   }
 }
 @keyframes orbit2 {
   from {
-    transform: rotate(0deg) translateX(-9em) translateY(-10em) rotate(0deg);
+    transform: rotate(0deg) translateX(-9em) translateY(-15em) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(-9em) translateY(-10em) rotate(-360deg);
+    transform: rotate(360deg) translateX(-9em) translateY(-15em) rotate(-360deg);
   }
 }
 @keyframes orbit3 {
   from {
-    transform: rotate(0deg) translateX(11em) translateY(-10em) rotate(0deg);
+    transform: rotate(0deg) translateX(18em) translateY(10em) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(11em) translateY(-10em) rotate(-360deg);
+    transform: rotate(360deg) translateX(18em) translateY(10em) rotate(-360deg);
   }
 }
 @keyframes orbit4 {
   from {
-    transform: rotate(0deg) translateX(11em) translateY(9em) rotate(0deg);
+    transform: rotate(0deg) translateX(11em) translateY(15em) rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(11em) translateY(9em) rotate(-360deg);
+    transform: rotate(360deg) translateX(11em) translateY(15em) rotate(-360deg);
   }
 }
 @keyframes orbit5 {

@@ -179,7 +179,7 @@ let spcInterval = null
   }
 </script>
 
-<style>
+<style scoped>
 .container{
   color: whitesmoke;
 }

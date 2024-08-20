@@ -925,42 +925,42 @@ export default {
   z-index: 1;
 }
 #space0{
-  top: 50vh;
-  left: 100vw;
+  top: 30vh;
+  left: 60vw;
   animation: orbit0 239s linear infinite;
 }
 #space1{
-  top: 50vh;
-  left: 100vw;
+  top: 70vh;
+  left: 110vw;
   animation: orbit1 300s linear infinite;
 }
 #space2{
-  top: 50vh;
+  top: 20vh;
   left: 100vw;
   animation: orbit2 369s linear infinite;
 }
 #space3{
-  top: 50vh;
-  left: 100vw;
+  top: 65vh;
+  left: 60vw;
   animation: orbit3 512s linear infinite;
 }
 #space4{
-  top: 50vh;
-  left: 100vw;
+  top: 40vh;
+  left: 120vw;
   animation: orbit4 444s linear infinite;
 }
 #space5{
   top: 50vh;
-  left: 100vw;
+  left: 80vw;
   animation: orbit5 439s linear infinite;
 }
 #space6{
-  top: 50vh;
-  left: 100vw;
+  top: 60vh;
+  left: 130vw;
   animation: orbit6 916s linear infinite;
 }
 #space7{
-  top: 50vh;
+  top: 35vh;
   left: 100vw;
   animation: orbit7 962s linear infinite;
 }
@@ -970,69 +970,5 @@ export default {
   height: 3em;
   z-index: -1;
   float: left;
-}
-@keyframes orbit0 {
-  from {
-    transform: rotate(0deg) translateX(8em) translateY(-5em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(8em) translateY(-5em) rotate(-360deg);
-  }
-}
-@keyframes orbit1 {
-  from {
-    transform: rotate(0deg) translateX(-13em) translateY(5em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(-13em) translateY(5em) rotate(-360deg);
-  }
-}
-@keyframes orbit2 {
-  from {
-    transform: rotate(0deg) translateX(-9em) translateY(-15em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(-9em) translateY(-15em) rotate(-360deg);
-  }
-}
-@keyframes orbit3 {
-  from {
-    transform: rotate(0deg) translateX(18em) translateY(10em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(18em) translateY(10em) rotate(-360deg);
-  }
-}
-@keyframes orbit4 {
-  from {
-    transform: rotate(0deg) translateX(11em) translateY(15em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(11em) translateY(15em) rotate(-360deg);
-  }
-}
-@keyframes orbit5 {
-  from {
-    transform: rotate(0deg) translateX(-10em) translateY(13em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(-10em) translateY(13em) rotate(-360deg);
-  }
-}
-@keyframes orbit6 {
-  from {
-    transform: rotate(0deg) translateX(0em) translateY(20em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(0em) translateY(20em) rotate(-360deg);
-  }
-}
-@keyframes orbit7 {
-  from {
-    transform: rotate(0deg) translateX(-3em) translateY(-20em) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(-3em) translateY(-20em) rotate(-360deg);
-  }
 }
 </style>

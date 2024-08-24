@@ -87,6 +87,7 @@
     </div>
     <div class="inv_set" id="invset">
       <div v-show="tmp_inv === 'wh'">
+        <div class="close_set" @click="close_sett()">X</div>
         <div>Create White hole:</div>
         <div class="inv_setting" v-for="i in whm" :id="'it'+i" @click="whiteHole(i)">
           {{((0.1*(Math.PI)**i)).toFixed(2)}}
@@ -94,10 +95,12 @@
         <div class="inv_setting" id="whup" @click="whiteHole('up')">{{((0.1*(Math.PI)**(whm+2))).toFixed(2)}}DM</div>
       </div>
       <div v-show="tmp_inv === 'sun_nebula'">
+        <div class="close_set" @click="close_sett()">X</div>
         <div>Create Sun:</div>
         <div class="inv_setting" v-for="i in 3" :id="'sun'+i" @click="sunSet(i)">{{10**i}}H</div>
       </div>
       <div v-show="tmp_inv === 'dcoin'">
+        <div class="close_set" @click="close_sett()">X</div>
         <div>Create DarkCoin:</div>
         <div class="inv_setting" v-for="i in 1" :id="'dc'+i">{{1}}DM</div>
       </div>
@@ -568,6 +571,12 @@ export default {
         break
       }
     },
+    close_sett: function(){
+      document.getElementById(this.tmp_inv).style.borderColor = "gray"
+      this.tmp_inv = "nic"
+      document.body.style.cursor = "default"
+      document.getElementById("invset").style.display = "none"
+    },
     whiteHole: function(i){
       if(i === "up"){
         if(this.dm >= ((0.1*(Math.PI)**(this.whm+2)))){
@@ -846,6 +855,13 @@ export default {
   padding-bottom: 1em;
   z-index: 3;
 }
+.close_set{
+  color: red;
+  border: 1px red solid;
+  border-radius: 50%;
+  text-align: center;
+  width: 2vw;
+}
 .itm{
   display: inline-block;
   border: 2px solid whitesmoke;
@@ -877,10 +893,11 @@ export default {
   position: fixed;
   border: 1px solid gray;
   background-color: whitesmoke;
-  border-radius: 10px;
   width: 100vw;
-  bottom: 13vh;
+  bottom: 9.5vh;
   z-index: 4;
+  left: -0.1vw;
+  padding-left: 0.5vw;
 }
 .inv_setting{
   display: inline-flex;
@@ -918,9 +935,9 @@ export default {
 }
 .spc{
   position: absolute;
-  width: 200vw;
-  height: 100vh;
   color: whitesmoke;
+  height: 100vh;
+  width: 200vw;
   overflow: auto;
   z-index: 1;
 }
@@ -930,7 +947,7 @@ export default {
   animation: orbit0 239s linear infinite;
 }
 #space1{
-  top: 70vh;
+  top: 55vh;
   left: 110vw;
   animation: orbit1 300s linear infinite;
 }
